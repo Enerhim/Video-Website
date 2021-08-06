@@ -1,0 +1,21 @@
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="http://localhost/videoweb"><i class="fas fa-home"></i> Home</a>
+    <a href="#"><i class="fas fa-history"></i> History</a>
+    <a href="#"><i class="fas fa-users"></i> Following</a>
+    <hr class="text-white" height="10px">
+</div>
+
+<script>
+    /* Set the width of the sidebar to 250px (show it) */
+    function openNav() {
+        document.getElementById("mySidepanel").style.width = "250px";
+    }
+
+    /* Set the width of the sidebar to 0 (hide it) */
+    function closeNav() {
+        document.getElementById("mySidepanel").style.width = "0";
+    }
+
+    closeNav();
+</script>
