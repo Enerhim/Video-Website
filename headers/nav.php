@@ -14,7 +14,9 @@
                 if (isset($_SESSION["logged_in"])) {
                 ?>
                     <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp'] ?>" width=32 height=32>
-                    
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#uploadFormModal">
+                        <i class="fas fa-video"></i>
+                    </button>
                 <?php
                 } else {
                 ?>

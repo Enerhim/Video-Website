@@ -65,6 +65,34 @@
         </div>
     </div>
 
+    <!-- Upload Modal -->
+
+    <div class="modal fade" id="uploadFormModal" tabindex="-1" aria-labelledby="uploadFormModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+        <div class="modal-dialog modal-xl   ">
+            <div class="modal-content bg-dark">
+
+                <div class="modal-header" class="border-none">
+                    <h5 class="modal-title text-light text-center" id="uploadFormModalLabel"><i class="fas fa-video"></i> Upload Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body" class="border-none">
+                    <form action="./api/upload_video.php" method="post" enctype="multipart/form-data">
+                        <label for="video"><span>Video:</span></label>
+                        <input type="file" name="video" id="video" />
+                        <br />
+                        <input type="submit" name="submit" value="Submit"/>
+                    </form>
+                </div>
+
+                <div class="modal-footer" class="border-none text-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
