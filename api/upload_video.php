@@ -1,17 +1,20 @@
 <?php
+session_start();
 
 $allowedVideoExts = array("mp4", "mkv", "avi", "webm");
 $extensionVideo = pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
 
-$videoDirectory = $videoDirectory.$_SESSION["uid"]."/";
+$videoDirectory = "../videos/".$_SESSION["uid"]."/";
+
+mkdir($videoDirectory, 0777, true);
 
 if ((($_FILES["video"]["type"] == "video/mp4")
 || ($_FILES["video"]["type"] == "video/mkv")
 || ($_FILES["video"]["type"] == "video/avi")
 || ($_FILES["video"]["type"] == "video/webm"))
 
-&& ($_FILES["video"]["size"] < 1048576)
-&& in_array($extension, $allowedExts)) {
+// && ($_FILES["video"]["size"] < 1048576)
+&& in_array($extensionVideo, $allowedVideoExts)) {
     
     if ($_FILES["video"]["error"] > 0) {
       echo "Return Code: " . $_FILES["video"]["error"] . "<br />";
@@ -22,6 +25,7 @@ if ((($_FILES["video"]["type"] == "video/mp4")
     echo "Type: " . $_FILES["video"]["type"] . "<br />";
     echo "Size: " . ($_FILES["video"]["size"] / 1024) . " Kb<br />";
     echo "Temp file: " . $_FILES["video"]["tmp_name"] . "<br />";
+    echo "Upload Dir: " . $videoDirectory . "<br />";
 
     if (file_exists($videoDirectory . $_FILES["video"]["name"]))
       {

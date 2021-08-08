@@ -44,7 +44,7 @@
 
                     jQuery.ajax({
                         type: "POST",
-                        url: '../videoweb/api/google_login.php',
+                        url: '../videoweb/api/google_login/database_entry.php',
                         dataType: "json",
                         data: {
                             "g_id": profile.getId(),
@@ -55,11 +55,35 @@
 
                         success: function(obj, textstatus) {
                             if (!('error' in obj)) {
-                                console.log(obj);
+                                console.log("Database Entry: " + obj);
+
+                                // session vars
+
+                                jQuery.ajax({
+                                    type: "POST",
+                                    url: '../videoweb/api/google_login/session_vars.php',
+                                    dataType: "json",
+                                    data: {
+                                        "g_id": profile.getId(),
+                                    },
+
+                                    success: function(obj, textstatus) {
+                                        if (!('error' in obj)) {
+                                            console.log("Session Vars: " + obj);
+                                        } else {
+                                            console.log(obj.error);
+                                        }
+                                    }
+
+                                });
+
+                                // session vars
+
                             } else {
                                 console.log(obj.error);
                             }
                         }
+
                     });
 
                     reload();
