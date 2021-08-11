@@ -44,7 +44,7 @@
 
                     jQuery.ajax({
                         type: "POST",
-                        url: '../videoweb/api/google_login/database_entry.php',
+                        url: '../api/google_login/database_entry.php',
                         dataType: "json",
                         data: {
                             "g_id": profile.getId(),
@@ -61,7 +61,7 @@
 
                                 jQuery.ajax({
                                     type: "POST",
-                                    url: '../videoweb/api/google_login/session_vars.php',
+                                    url: '../api/google_login/session_vars.php',
                                     dataType: "json",
                                     data: {
                                         "g_id": profile.getId(),

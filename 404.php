@@ -19,7 +19,7 @@
 <body class="bg-dark">
     <!-- Nav -->
     <nav class="navbar navbar-expand-sm navbar-dark" style="color: white; z-index: 2; background-color: #141516">
-        <a class="navbar-brand" href="http://localhost/videoweb">
+        <a class="navbar-brand" href="http://localhost">
             <h1 class="ml-4">Video Sharing Website</h1>
         </a>
     </nav>
@@ -31,6 +31,6 @@
         <div class="row w-50 mx-auto">
             <h1 class="text-light text-center fw-light">Page not Found</h1> 
         </div>
-        <p class="text-light text-center fw-light"><a class="text-decoration-none" href="http://localhost/videoweb">Goto hompage</a> </h1> 
+        <p class="text-light text-center fw-light"><a class="text-decoration-none" href="http://localhost">Goto hompage</a> </h1> 
     </div>
 </body>

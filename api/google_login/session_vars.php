@@ -24,4 +24,5 @@ if ($result->num_rows > 0) {
     $res["error"] = 'Could not create session variables!';
 }   
 
+$con->close();
 echo json_encode($res);
