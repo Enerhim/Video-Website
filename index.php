@@ -15,11 +15,10 @@
     <?php include_once './headers/cdn.html' ?>
 
     <!-- Links -->
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
     <style>
-        .vl {
-            border-left: 1px solid gray;
+        body {
+            overflow-x: hidden;
         }
 
         .modal-header {
@@ -29,43 +28,52 @@
         .modal-footer {
             border-top: 0px;
         }
+
+        textarea {
+            max-height: 200px;
+        }
     </style>
 </head>
 
-<body class="bg-dark">
-    <!-- Nav -->
-    <nav class="navbar navbar-expand-sm navbar-dark" style="color: white; z-index: 2; background-color: #141516">
-        <a class="navbar-brand" href="http://localhost">
-            <h1 class="ml-4">Video Sharing Website</h1>
-        </a>
-    </nav>
+<body style="background-color: #111112">
     <?php include_once './headers/nav.php' ?>
-    <?php include_once './headers/sidepanel.html' ?>
 
-    <!-- Content -->
-    <div class="container p-0" style="margin-top: 10%">
-        <div class="row">
-            <section class="m-2 shadow-lg col-md" style="max-width: 320px">
-                <div class="thumb-container">
-                    <a href="http://localhost/watch/?v=00000a">
-                        <img src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" alt="Thumbnail" class="rounded thumbnail" width="300px" height="200px">
-                    </a>
+    <div class="container-fluid">
+        <div class="row text-light">
+
+            <div class="col-sm-auto bg-dark sticky-top" style="z-index: 1000">
+                <div class="d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-center sticky-top">
+                    <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-100 px-3 align-items-center mt-5">
+                        <li class="nav-item">
+                            <a href="http://localhost" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                                <i class="fas fa-home fs-1 mt-3"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost/profile" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                                <i class="fas fa-user fs-1 mt-3"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost/history/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                                <i class="fas fa-history fs-1 mt-3"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost/videos/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                                <i class="fas fa-film fs-1 mt-3"></i>
+                            </a>
+                        </li>
+
+
                 </div>
-                <div class="details d-flex">
-                    <a href="#geochannel"><img src="https://yt3.ggpht.com/ytc/AKedOLRw8FkWXQj3wvux2ybZOb3PeZ_lgGhiSTJuJ5kLhg=s68-c-k-c0x00ffffff-no-rj" alt="" class="rounded-circle creatoricon" style="width: 48px;  height: 48px; display:inline-block; margin: 10px;"></a>
-                    <div class="info">
-                        <a href="#geochannelvideo">
-                            <p class="title text-white mt-2" style="margin-bottom: 5px">My Planet</p>
-                        </a>
-                        <a href="#geochannelvideo">
-                            <p class="creatorname text-secondary">Geochannel</p>
-                        </a>
-                    </div>
-                </div>
-            </section>
+            </div>
+
+            <div class="col-sm p-3 min-vh-100">
+
+            </div>
         </div>
     </div>
-
     <!-- Upload Modal -->
 
     <div class="modal fade" id="uploadFormModal" tabindex="-1" aria-labelledby="uploadFormModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
@@ -77,19 +85,29 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="./api/upload_video.php" method="post" enctype="multipart/form-data">
+                <form action='./api/upload_video.php' method="post" enctype="multipart/form-data">
                     <div class="modal-body" class="border-none">
 
                         <div class="container">
 
-                        <hr class="text-white"/>
+                            <hr class="text-white" />
 
-                        <!-- Video File -->
+                            <!-- Metadata -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Video Title" required>
+                                <label for="titleInput">Video Title</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="descriptionInput" name="descriptionInput" placeholder="Video Description" maxlength=2000 height=200px></textarea>
+                                <label for="descriptionInput">Video Description</label>
+                            </div>
+
+                            <!-- Video File -->
                             <div class="row">
                                 <div class="col">
                                     <div class="input-group mb-3    ">
                                         <label class="input-group-text" for="video">Upload Video</label>
-                                        <input type="file" name="video" id="video" class="form-control" onchange="readURLVideo(this);" accept="video/mp4, video/mkv, video/avi, video/webm"/>
+                                        <input type="file" name="video" id="video" class="form-control" onchange="readURLVideo(this);" accept="video/mp4, video/mkv, video/avi, video/webm" required />
                                     </div>
                                 </div>
 
@@ -102,10 +120,10 @@
                                 </div>
                             </div>
 
-                            <hr class="text-white"/>
+                            <hr class="text-white" />
 
 
-                        <!-- Thumbnail File -->
+                            <!-- Thumbnail File -->
                             <div class="row">
                                 <div class="col">
                                     <div class="input-group mb-3    ">
@@ -115,7 +133,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <img id="thumbnail-preview" width="100%" height="80%"> </img>
+                                    <img id="thumbnail-preview" width="100%" height="80%" src="https://via.placeholder.com/200/?text=Select%20a%20thumbnail"> </img>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +143,7 @@
 
                     <div class="modal-footer" class="border-none text-light">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="submit" value="Submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" name="submit" value="Submit" class="btn btn-primary">Upload</button>
                     </div>
                 </form>
 
@@ -133,7 +151,7 @@
         </div>
     </div>
 
-    <!-- Video Preview -->
+    <!-- Video and Thumbnail Preview -->
     <script type="text/javascript">
         function readURLThumb(input) {
             if (input.files && input.files[0]) {

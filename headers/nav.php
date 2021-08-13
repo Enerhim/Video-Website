@@ -3,9 +3,6 @@
 <div class="top-nav-section sticky-top">
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <button class="openbtn" onclick="openNav()">&#9776;</button>
-            </li>
             <form class="d-flex inline mx-5">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
@@ -13,10 +10,16 @@
                 <?php
                 if (isset($_SESSION["logged_in"])) {
                 ?>
-                    <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp'] ?>" width=32 height=32>
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#uploadFormModal">
-                        <i class="fas fa-video"></i>
-                    </button>
+                    <div class="dropdown">
+                        <a href="" class="d-flex align-items-center justify-content-center link-dark text-decoration-none dropdown-toggle" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp'] ?>" width=32 height=32>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                            <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#uploadFormModal"> <i class="fas fa-video"></i> New Video</a></li>
+                            <li><a class="dropdown-item" href=""> <i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href=""> Log out </a></li>
+                        </ul>
+                    </div>
                 <?php
                 } else {
                 ?>
@@ -57,8 +60,7 @@
                             if (!('error' in obj)) {
                                 console.log("Database Entry: " + obj);
 
-                                // session vars
-
+                                // Session Vars
                                 jQuery.ajax({
                                     type: "POST",
                                     url: '../api/google_login/session_vars.php',
@@ -74,10 +76,8 @@
                                             console.log(obj.error);
                                         }
                                     }
-
                                 });
-
-                                // session vars
+                                /// Session Vars
 
                             } else {
                                 console.log(obj.error);
