@@ -11,7 +11,7 @@ $videoDirectory = "../videos/" . $_SESSION["uid"] . "/";
 $thumbDirectory = "../thumbnail/" . $_SESSION["uid"] . "/";
 
 $videoLink;
-$thumbLink;
+$thumbLink;   
 
 mkdir($videoDirectory, 0777, true);
 mkdir($thumbDirectory, 0777, true);

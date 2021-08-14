@@ -1,4 +1,33 @@
-<?php session_start() ?>
+<?php session_start() ;
+
+include_once "../utility/sql_connect.php";
+
+$query1 = 'SELECT * FROM videos WHERE wid ='.$_GET["v"];                        
+$result1 = $con->query($query1);
+
+if ($result1->num_rows > 0) {
+    while ($row = $result1->fetch_assoc()) {
+        $thumbLink = $row["thumbnail_link"];
+        $videoLink = $row["video_link"];
+        $videoTitle = $row["video_title"];
+        $videoDescription = $row["video_description"];
+        $videoLikes = $row["likes"];
+        $videoViews = $row["views"];
+        
+        $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
+        $result2 = $con->query($query2);
+
+        while ($row = $result2->fetch_assoc()) {   
+            $channelPfp = $row["pfp_url"];
+            $channelUid = $row["uid"];
+            $channelName = $row["name"];
+        }
+
+        $commentersName = "Enerhim";
+        $commentersUid = "3";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Head -->
-    <title>Watching: <?php echo $_GET["v"] ?></title>
+    <title>Watching: <?php echo $videoTitle ?></title>
 
     <!-- CDN -->
     <?php include_once '../headers/cdn.html' ?>
@@ -17,9 +46,11 @@
     <!-- Links -->
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <style>
+    </style>
 </head>
 
-<body class="bg-dark">
+<body style="background-color: #111112;">
     <?php include_once '../headers/nav.php' ?>
 
     <div class="container-fluid">
@@ -53,13 +84,13 @@
                 </div>
             </div>
 
-            <div class="col-sm min-vh-100">
+            <div class="col-sm min-vh-100 p-0">
                 <!-- Player -->
 
-                <div class="vcontainer d-flex justify-content-center" style=" background-color: #141516">
+                <div class="vcontainer d-flex justify-content-center" style=" background-color: #0b121c;">
                     <div class="video-wrapper" style="max-width: 75%;">
-                        <video id="player" playsinline controls data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg">
-                            <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" />
+                        <video id="player" playsinline controls data-poster="<?php echo $thumbLink?>">
+                            <source src="<?php echo $videoLink?>" type="video/mp4" />
                         </video>
 
                         <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
@@ -68,6 +99,91 @@
                         </script>
 
                     </div>
+                </div>
+
+                <h1 class="text-white pt-3 px-5 mx-5"><?php echo $videoTitle?></h1>
+                <a class="text-decoration-none d-flex px-5 pb-2 mb-1 mx-5 border-bottom border-dark border-2" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=32 height=32> 
+                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                </a> 
+                
+                <p class="text-secondary px-5 mx-5">Description: </p>
+                <p class="text-white px-5 pb-3 mx-5 border-bottom border-dark border-2">
+                    <?php if ($videoDescription) { echo $videoDescription;} else {echo "No description";}?>
+                </p>
+                
+                <p class="text-secondary px-5 mx-5">Comments: </p>
+                <div class="input-group pb-3 px-5 mx-5 w-75">
+                    <input type="text" class="form-control bg-dark text-whtie" style="border: 0px;" placeholder="Write a comment" aria-label="Write a comment" aria-describedby="commentInput">
+                    <button class="btn btn-dark" type="button" id="commentInput">Post</button>
+                </div>
+
+                <!-- Comment Section -->
+
+                <div class="container">
+                    <!-- Thread -->
+                    <div class="row thread mb-5">
+                        <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                            <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18> 
+                            <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                        </a> 
+                        <p>Comment</p>
+                        <div class="replies border-start border-dark border-5">
+                            <div class="row w-25 ms-5">
+                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
+                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                                </a> 
+                                <p>Reply</p>
+                            </div>
+                            <div class="row w-25 ms-5">
+                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
+                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                                </a> 
+                                <p>Reply</p>
+                            </div>
+                            <div class="row w-25 ms-5">
+                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
+                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                                </a> 
+                                <p>Reply</p>
+                            </div>
+                            <div class="row w-25 ms-5">
+                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
+                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                                </a> 
+                                <p>Reply</p>
+                            </div>
+                            <div class="row w-25 ms-5">
+                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
+                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                                </a> 
+                                <p>Reply</p>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="row thread mb-5">
+                        <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                            <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18> 
+                            <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                        </a> 
+                        <p>Comment</p>
+                        <div class="replies border-start border-dark border-5">
+                            <div class="row w-25 ms-5">
+                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
+                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
+                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
+                                </a> 
+                                <p>Reply</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -180,7 +296,7 @@
 
 </body>
 
-    
+<?php $con->close() ?>
 
 
 </html>

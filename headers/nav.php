@@ -12,9 +12,9 @@
                 ?>
                     <div class="dropdown">
                         <a href="" class="d-flex align-items-center justify-content-center link-dark text-decoration-none dropdown-toggle" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp'] ?>" width=32 height=32>
+                            <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp']?>" width=32 height=32>
                         </a>
-                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <ul class="dropdown-menu dropdown-menu-dark text-small" aria-labelledby="dropdownUser3">
                             <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#uploadFormModal"> <i class="fas fa-video"></i> New Video</a></li>
                             <li><a class="dropdown-item" href=""> <i class="fas fa-cog"></i> Settings</a></li>
                             <li><a class="dropdown-item" href=""> Log out </a></li>
