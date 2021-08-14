@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2021 at 02:16 PM
+-- Generation Time: Aug 14, 2021 at 11:59 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -43,6 +43,32 @@ INSERT INTO `ggusers` (`uid`, `gid`, `name`, `email`, `pfp_url`) VALUES
 (1, '115213823093861892123', 'Himanshu Sharma', 'himsharma9122006@gmail.com', 'https://lh3.googleusercontent.com/ogw/ADea4I672DNV7chizfQIakfppT1qyqCCAUI_asAub-cdxQ=s83-c-mo'),
 (2, '118215757332599724105', 'Himanshu Sharma', 'himsharma.contact@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gg-zrhdzw2ubQvwS385yBx6LZ0211Rw-ElsS6d_=s96-c');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `wid` int(10) UNSIGNED NOT NULL,
+  `video_title` varchar(50) NOT NULL,
+  `video_description` mediumtext DEFAULT '\'Description not set\'',
+  `likes` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `dislikes` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `views` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `thumbnail_link` text DEFAULT NULL,
+  `video_link` text NOT NULL,
+  `channel_uid` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `videos`
+--
+
+INSERT INTO `videos` (`wid`, `video_title`, `video_description`, `likes`, `dislikes`, `views`, `thumbnail_link`, `video_link`, `channel_uid`) VALUES
+(1, 'TestVideo3', 'This is a text video made by Enerhim, Pls like and subscribe', 0, 0, 0, '../thumbnail/1/1628765545-1-TestVideo3.jpg', '../videos/1/1628765545-1-TestVideo3.mp4', 1),
+(2, 'TestVideo4', '', 0, 0, 0, '../thumbnail/1/1628875169-1-TestVideo4.jpg', '../videos/1/1628875169-1-TestVideo4.mp4', 1);
+
 --
 -- Indexes for dumped tables
 --
@@ -54,6 +80,12 @@ ALTER TABLE `ggusers`
   ADD PRIMARY KEY (`uid`);
 
 --
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD UNIQUE KEY `unique` (`wid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -62,6 +94,12 @@ ALTER TABLE `ggusers`
 --
 ALTER TABLE `ggusers`
   MODIFY `uid` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `wid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
