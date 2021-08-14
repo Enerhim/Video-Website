@@ -179,7 +179,7 @@
 
             <div class="col-sm p-3 min-vh-100">
             
-                <h1 class="fw-bold mb-4" >Newest Videos <a href="http://localhost/newest/" class="text-decoration-none text-primary">></a></h1>
+                <h1 class="fw-bold mb-4" >Newest Videos <a href="http://localhost/newest.php" class="text-decoration-none text-primary">></a></h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
                         include_once "./utility/sql_connect.php";
@@ -212,7 +212,7 @@
                     ?>
                 </div>
 
-                <h1 class="fw-bold mb-4 mt-5" >Most Viewed <a href="http://localhost/mostviewed/" class="text-decoration-none text-primary">></a></h1>
+                <h1 class="fw-bold mb-4 mt-5" >Most Viewed <a href="http://localhost/mostviewed.php" class="text-decoration-none text-primary">></a></h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
                         include_once "./utility/sql_connect.php";
@@ -245,7 +245,7 @@
                     ?>
                 </div>
 
-                <h1 class="fw-bold mb-4 mt-5" >Most Liked <a href="http://localhost/mostliked/" class="text-decoration-none text-primary">></a></h1>
+                <h1 class="fw-bold mb-4 mt-5" >Most Liked <a href="http://localhost/mostliked.php" class="text-decoration-none text-primary">></a></h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
                         include_once "./utility/sql_connect.php";

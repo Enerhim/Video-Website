@@ -12,7 +12,7 @@
     <title>Video Sharing Website</title>
 
     <!-- CDN -->
-    <?php include_once './headers/cdn.html' ?>
+    <?php include_once '../headers/cdn.html' ?>
 
     <!-- Links -->
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
@@ -143,7 +143,7 @@
 </head>
 
 <body style="background-color: #111112">
-    <?php include_once './headers/nav.php' ?>
+    <?php include_once '../headers/nav.php' ?>
 
     <div class="container-fluid">
         <div class="row text-light">
@@ -182,7 +182,7 @@
                 <h1 class="fw-bold mb-4 mt-5" >Most Liked </h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
-                        include_once "./utility/sql_connect.php";
+                        include_once "../utility/sql_connect.php";
 
                         $query1 = 'SELECT * FROM videos ORDER BY likes DESC';                        
                         $result1 = $con->query($query1);
@@ -205,7 +205,7 @@
                                     $channelName = $row["name"];
                                 }
     
-                                include "./headers/cards/normal_video_card.php";
+                                include "../headers/cards/normal_video_card.php";
                             }
                         }
 
