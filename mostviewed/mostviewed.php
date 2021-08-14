@@ -179,78 +179,12 @@
 
             <div class="col-sm p-3 min-vh-100">
             
-                <h1 class="fw-bold mb-4" >Newest Videos <a href="http://localhost/newest/" class="text-decoration-none text-primary">></a></h1>
-                <div class="row row-cols-1 row-cols-md-4 g-4" >
-                    <?php 
-                        include_once "./utility/sql_connect.php";
-
-                        $query1 = 'SELECT * FROM videos ORDER BY wid DESC LIMIT 4';                        
-                        $result1 = $con->query($query1);
-
-                        if ($result1->num_rows > 0) {
-                            while ($row = $result1->fetch_assoc()) {
-                                $thumbLink = $row["thumbnail_link"];
-                                $videoTitle = $row["video_title"];
-                                $videoDescription = $row["video_description"];
-                                $wid = $row["wid"];
-                                $videoLikes = $row["likes"];
-                                $videoViews = $row["views"];
-                                
-                                $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
-                                $result2 = $con->query($query2);
-
-                                while ($row = $result2->fetch_assoc()) {   
-                                    $channelPfp = $row["pfp_url"];
-                                    $channelUid = $row["uid"];
-                                    $channelName = $row["name"];
-                                }
-    
-                                include "./headers/cards/normal_video_card.php";
-                            }
-                        }
-
-                    ?>
-                </div>
-
-                <h1 class="fw-bold mb-4 mt-5" >Most Viewed <a href="http://localhost/mostviewed/" class="text-decoration-none text-primary">></a></h1>
+                <h1 class="fw-bold mb-4 mt-5" >Most Viewed </h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
                         include_once "./utility/sql_connect.php";
 
                         $query1 = 'SELECT * FROM videos ORDER BY views DESC';                        
-                        $result1 = $con->query($query1);
-
-                        if ($result1->num_rows > 0) {
-                            while ($row = $result1->fetch_assoc()) {
-                                $thumbLink = $row["thumbnail_link"];
-                                $videoTitle = $row["video_title"];
-                                $videoDescription = $row["video_description"];
-                                $wid = $row["wid"];
-                                $videoLikes = $row["likes"];
-                                $videoViews = $row["views"];
-                                
-                                $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
-                                $result2 = $con->query($query2);
-
-                                while ($row = $result2->fetch_assoc()) {   
-                                    $channelPfp = $row["pfp_url"];
-                                    $channelUid = $row["uid"];
-                                    $channelName = $row["name"];
-                                }
-    
-                                include "./headers/cards/normal_video_card.php";
-                            }
-                        }
-
-                    ?>
-                </div>
-
-                <h1 class="fw-bold mb-4 mt-5" >Most Liked <a href="http://localhost/mostliked/" class="text-decoration-none text-primary">></a></h1>
-                <div class="row row-cols-1 row-cols-md-4 g-4" >
-                    <?php 
-                        include_once "./utility/sql_connect.php";
-
-                        $query1 = 'SELECT * FROM videos ORDER BY likes DESC LIMIT 4';                        
                         $result1 = $con->query($query1);
 
                         if ($result1->num_rows > 0) {
