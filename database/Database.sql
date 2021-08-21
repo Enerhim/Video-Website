@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2021 at 11:59 AM
+-- Generation Time: Aug 21, 2021 at 02:53 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `videoweb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `cid` int(10) UNSIGNED NOT NULL,
+  `comment_text` mediumtext NOT NULL,
+  `likes` int(10) NOT NULL,
+  `commenter_uid` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`cid`, `comment_text`, `likes`, `commenter_uid`) VALUES
+(1, 'ReloadTest1', 0, 1),
+(2, 'ReloadTest2', 0, 1),
+(3, '*markdown text*', 0, 1),
+(4, '*markdown test 2*', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -42,6 +65,20 @@ CREATE TABLE `ggusers` (
 INSERT INTO `ggusers` (`uid`, `gid`, `name`, `email`, `pfp_url`) VALUES
 (1, '115213823093861892123', 'Himanshu Sharma', 'himsharma9122006@gmail.com', 'https://lh3.googleusercontent.com/ogw/ADea4I672DNV7chizfQIakfppT1qyqCCAUI_asAub-cdxQ=s83-c-mo'),
 (2, '118215757332599724105', 'Himanshu Sharma', 'himsharma.contact@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14Gg-zrhdzw2ubQvwS385yBx6LZ0211Rw-ElsS6d_=s96-c');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `replies`
+--
+
+CREATE TABLE `replies` (
+  `rcid` int(10) NOT NULL,
+  `reply_text` mediumtext NOT NULL,
+  `likes` int(10) NOT NULL,
+  `channel_uid` int(10) NOT NULL,
+  `reply_cid` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -74,10 +111,22 @@ INSERT INTO `videos` (`wid`, `video_title`, `video_description`, `likes`, `disli
 --
 
 --
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`cid`);
+
+--
 -- Indexes for table `ggusers`
 --
 ALTER TABLE `ggusers`
   ADD PRIMARY KEY (`uid`);
+
+--
+-- Indexes for table `replies`
+--
+ALTER TABLE `replies`
+  ADD PRIMARY KEY (`rcid`);
 
 --
 -- Indexes for table `videos`
@@ -90,10 +139,22 @@ ALTER TABLE `videos`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `cid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `ggusers`
 --
 ALTER TABLE `ggusers`
   MODIFY `uid` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `replies`
+--
+ALTER TABLE `replies`
+  MODIFY `rcid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `videos`
