@@ -20,6 +20,7 @@ Todo:
 
 Potential Features:
 - Login with other Platforms
+- A mobile app for android (maybe ios)
 
 ## Homepage
 
