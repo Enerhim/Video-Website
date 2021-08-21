@@ -22,9 +22,6 @@ if ($result1->num_rows > 0) {
             $channelUid = $row["uid"];
             $channelName = $row["name"];
         }
-
-        $commentersName = "Enerhim";
-        $commentersUid = "3";
     }
 }
 ?>
@@ -114,75 +111,38 @@ if ($result1->num_rows > 0) {
                 
                 <p class="text-secondary px-5 mx-5">Comments: </p>
                 <div class="input-group pb-3 px-5 mx-5 w-75">
-                    <input type="text" class="form-control bg-dark text-whtie" style="border: 0px;" placeholder="Write a comment" aria-label="Write a comment" aria-describedby="commentInput">
-                    <button class="btn btn-dark" type="button" id="commentInput">Post</button>
+                    <input name="comment_box" id="comment_box" type="text" class="form-control bg-dark text-light" style="border: 0px;" placeholder="Write a comment" aria-label="Write a comment" aria-describedby="commentInput">
+                    <button class="btn btn-dark" type="button" id="commentInput"
+                    onclick="upload_comment()"
+                    
+                    >Post</button>
                 </div>
 
                 <!-- Comment Section -->
 
-                <div class="container">
+                <div class="container mb-5">
                     <!-- Thread -->
-                    <div class="row thread mb-5">
-                        <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                            <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18> 
-                            <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                        </a> 
-                        <p>Comment</p>
-                        <div class="replies border-start border-dark border-5">
-                            <div class="row w-25 ms-5">
-                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
-                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                                </a> 
-                                <p>Reply</p>
-                            </div>
-                            <div class="row w-25 ms-5">
-                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
-                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                                </a> 
-                                <p>Reply</p>
-                            </div>
-                            <div class="row w-25 ms-5">
-                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
-                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                                </a> 
-                                <p>Reply</p>
-                            </div>
-                            <div class="row w-25 ms-5">
-                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
-                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                                </a> 
-                                <p>Reply</p>
-                            </div>
-                            <div class="row w-25 ms-5">
-                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
-                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                                </a> 
-                                <p>Reply</p>
-                            </div>
+                    <?php
+                        $query1 = 'SELECT * FROM comments ORDER BY likes DESC';                        
+                        $result1 = $con->query($query1);
+
+                        if ($result1->num_rows > 0) {
+                            while ($row = $result1->fetch_assoc()) {
+                                    $comment_text = $row["comment_text"];
+                                    $commenter_uid = $row["commenter_uid"];
+
+                                $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["commenter_uid"];                        
+                                $result2 = $con->query($query2);
+
+                                while ($row = $result2->fetch_assoc()) {   
+                                    $commenter_pfp = $row["pfp_url"];
+                                    $commenter_name = $row["name"];
+                                }
     
-                        </div>
-                    </div>
-                    <div class="row thread mb-5">
-                        <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                            <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18> 
-                            <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                        </a> 
-                        <p>Comment</p>
-                        <div class="replies border-start border-dark border-5">
-                            <div class="row w-25 ms-5">
-                                <a class="text-decoration-none d-flex flex-wrap align-items-center" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=18 height=18>
-                                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                                </a> 
-                                <p>Reply</p>
-                            </div>
-                        </div>
-                    </div>
+                                include "../headers/comments/thread.php";
+                            }
+                        }
+                    ?>
                     
                 </div>
             </div>
@@ -290,6 +250,21 @@ if ($result1->num_rows > 0) {
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+        function upload_comment() {
+            jQuery.ajax({
+                type: 'POST',
+                url: '../api/upload_comment.php',
+                dataType: 'json',
+                data: {
+                    'comment_text': $('#comment_box').val()
+                },
+
+                success: function(obj, textstatus) {
+                    console.log(obj)
+                    location.reload();      
+                }
+            })
         }
     </script>
 

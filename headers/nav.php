@@ -15,9 +15,9 @@
                             <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp']?>" width=32 height=32>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small" aria-labelledby="dropdownUser3">
-                            <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#uploadFormModal"> <i class="fas fa-video"></i> New Video</a></li>
-                            <li><a class="dropdown-item" href=""> <i class="fas fa-cog"></i> Settings</a></li>
-                            <li><a class="dropdown-item" href=""> Log out </a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#uploadFormModal"> <i class="fas fa-video"></i> New Video</a></li>
+                            <li><a class="dropdown-item" href="#"> <i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="signOut();"> Log out </a></li>
                         </ul>
                     </div>
                 <?php
@@ -87,6 +87,19 @@
                     });
 
                     reload();
+                }
+
+                function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                    });
+                }
+                
+                function onLoad() {
+                    gapi.load('auth2', function() {
+                        gapi.auth2.init();
+                    });
                 }
             </script>
 

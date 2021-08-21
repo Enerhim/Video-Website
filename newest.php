@@ -179,7 +179,7 @@
 
             <div class="col-sm p-3 min-vh-100">
             
-                <h1 class="fw-bold mb-4" >Newest Videos </h1>
+                <h1 class="fw-bold mb-4 mt-5" >Newest Videos </h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
                         include_once "./utility/sql_connect.php";
