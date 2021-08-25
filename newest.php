@@ -16,6 +16,7 @@
 
     <!-- Links -->
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <link rel="stylesheet" href="http://localhost/style.css">
     <style>
         body {
             overflow-x: hidden;
@@ -142,7 +143,7 @@
     </style>
 </head>
 
-<body style="background-color: #111112">
+<body style="background-color: #111112"  class="transition-fade" id="swup">
     <?php include_once './headers/nav.php' ?>
 
     <div class="container-fluid">
@@ -183,8 +184,11 @@
                 <div class="row row-cols-1 row-cols-md-4 g-4" >
                     <?php 
                         include_once "./utility/sql_connect.php";
-
-                        $query1 = 'SELECT * FROM videos ORDER BY wid DESC';                        
+                        if (isset($_GET["c"])) {
+                            $query1 = 'SELECT * FROM videos WHERE channel_uid = '. $_GET['c'].' ORDER BY wid DESC';                        
+                        } else {
+                            $query1 = 'SELECT * FROM videos ORDER BY wid DESC';                        
+                        }
                         $result1 = $con->query($query1);
 
                         if ($result1->num_rows > 0) {

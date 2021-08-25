@@ -1,6 +1,6 @@
 <?php session_start();?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-fade" id="swup">
 
 <head>
     <!-- Meta -->
@@ -15,7 +15,8 @@
     <?php include_once './headers/cdn.html' ?>
 
     <!-- Links -->
-    <link rel="stylesheet" href="style.css">    
+    <link rel="stylesheet" href="http://localhost/style.css">
+
 </head>
 <body style="background-color: #111112">
     <?php include_once './headers/nav.php' ?>
@@ -31,27 +32,28 @@
                                 <i class="fas fa-home fs-1 mt-3"></i>
                             </a>
                         </li>
+                        <?php if (isset($_SESSION['logged_in'])) {?>
                         <li>
-                            <a href="http://localhost/profile" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                            <a href="http://localhost/channel?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                 <i class="fas fa-user fs-1 mt-3"></i>
                             </a>
                         </li>
                         <li>
                             <a href="http://localhost/history/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                                <i class="fas fa-history fs-1 mt-3"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://localhost/videos/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-                                <i class="fas fa-film fs-1 mt-3"></i>
-                            </a>
-                        </li>
-
+                            <i class="fas fa-history fs-1 mt-3"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://localhost/videos/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                            <i class="fas fa-film fs-1 mt-3"></i>
+                        </a>
+                    </li>
+                    <?php }?>
 
                 </div>
             </div>
 
-            <div class="col-sm p-3 min-vh-100 text-light">
+            <div class="col-sm p-3 min-vh-100 text-light>
                 <div class="container w-50 mx-auto">
                     <div class="row w-50 mx-auto">
                         <h1 class="text-light text-center fw-bold pt-5" style="font-size:750%">404</h1> 

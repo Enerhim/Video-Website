@@ -26,7 +26,7 @@ if ($result1->num_rows > 0) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-fade" id="swup">
 
 <head>
     <!-- Meta -->
@@ -41,7 +41,7 @@ if ($result1->num_rows > 0) {
     <?php include_once '../headers/cdn.html' ?>
 
     <!-- Links -->
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="http://localhost/style.css">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
     <style>
     </style>
@@ -61,8 +61,9 @@ if ($result1->num_rows > 0) {
                                 <i class="fas fa-home fs-1 mt-3"></i>
                             </a>
                         </li>
+                        <?php if (isset($_SESSION['logged_in'])) {?>
                         <li>
-                            <a href="http://localhost/profile" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                            <a href="http://localhost/channel?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                 <i class="fas fa-user fs-1 mt-3"></i>
                             </a>
                         </li>
@@ -76,6 +77,7 @@ if ($result1->num_rows > 0) {
                                 <i class="fas fa-film fs-1 mt-3"></i>
                             </a>
                         </li>
+                        <?php }?>
 
 
                 </div>

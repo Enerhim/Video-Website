@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-fade" id="swup">
 
 <head>
     <!-- Meta -->
@@ -16,6 +16,8 @@
 
     <!-- Links -->
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <link rel="stylesheet" href="http://localhost/style.css">
+
     <style>
         body {
             overflow-x: hidden;
@@ -156,8 +158,9 @@
                                 <i class="fas fa-home fs-1 mt-3"></i>
                             </a>
                         </li>
+                        <?php if (isset($_SESSION['logged_in'])) {?>
                         <li>
-                            <a href="http://localhost/profile" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                            <a href="http://localhost/channel?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                 <i class="fas fa-user fs-1 mt-3"></i>
                             </a>
                         </li>
@@ -171,6 +174,7 @@
                                 <i class="fas fa-film fs-1 mt-3"></i>
                             </a>
                         </li>
+                        <?php }?>
 
 
                 </div>

@@ -32,16 +32,6 @@
 
 
             <script>
-                function reload() {
-                    if (window.localStorage) {
-                        if (!localStorage.getItem('firstLoad')) {
-                            localStorage['firstLoad'] = true;
-                            window.location.reload();
-                        } else localStorage.removeItem('firstLoad');
-                    }
-                };
-
-
                 function onSignIn(googleUser) {
                     var profile = googleUser.getBasicProfile();
 
@@ -85,21 +75,28 @@
                         }
 
                     });
-
-                    reload();
                 }
 
                 function signOut() {
                     var auth2 = gapi.auth2.getAuthInstance();
                     auth2.signOut().then(function () {
-                        console.log('User signed out.');
+                        console.log('User signed out.');                      
                     });
-                }
-                
-                function onLoad() {
-                    gapi.load('auth2', function() {
-                        gapi.auth2.init();
-                    });
+                    jQuery.ajax({
+                        type: "POST",
+                        url: '../api/google_login/logout.php',
+                        dataType: "json",
+                        data: {
+                            "logout": true
+                        },
+
+                        success: function(obj, textstatus) {
+                            if (!("error" in obj)) {
+                                console.log("User Sessions Destroyed")
+                                location.reload();
+                            }
+                        }
+                    })
                 }
             </script>
 
