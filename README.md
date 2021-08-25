@@ -12,16 +12,6 @@ Titles, Descriptions, and Thumbnails
 - Comment on videos
 - Sort videos by likes, views and newest
 
-Todo:
-- Reply and like comments
-- Track videos watched
-- Edit / Delete videos and comments
-- Search videos
-
-Potential Features:
-- Login with other Platforms
-- A mobile app for android (maybe ios)
-
 ## Homepage
 
 ![image](https://user-images.githubusercontent.com/61009672/130322679-027060c6-1c9c-4b12-8eac-e03534bad7c6.png)
