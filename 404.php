@@ -1,6 +1,6 @@
 <?php session_start();?>
 <!DOCTYPE html>
-<html lang="en" class="transition-fade" id="swup">
+<html lang="en">
 
 <head>
     <!-- Meta -->
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="col-sm p-3 min-vh-100 text-light>
+            <div class="col-sm p-3 min-vh-100 text-light transition-fade" id="swup">
                 <div class="container w-50 mx-auto">
                     <div class="row w-50 mx-auto">
                         <h1 class="text-light text-center fw-bold pt-5" style="font-size:750%">404</h1> 

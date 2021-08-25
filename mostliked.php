@@ -144,7 +144,7 @@
     </style>
 </head>
 
-<body style="background-color: #111112"  class="transition-fade" id="swup">
+<body style="background-color: #111112">
     <?php include_once './headers/nav.php' ?>
 
     <div class="container-fluid">
@@ -179,7 +179,7 @@
             </div>
 
 
-            <div class="col-sm p-3 min-vh-100">
+            <div class="col-sm p-3 min-vh-100 transition-fade" id="swup">
             
                 <h1 class="fw-bold mb-4 mt-5" >Most Liked </h1>
                 <div class="row row-cols-1 row-cols-md-4 g-4" >

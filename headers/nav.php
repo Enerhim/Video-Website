@@ -3,16 +3,17 @@
 <div class="top-nav-section sticky-top">
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
         <ul class="navbar-nav">
-            <form class="d-flex inline mx-5">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-
+            <div class="nav-item-container d-flex inline ms-2">
+                <form action="http://localhost/search.php" class="d-flex inline" method="GET">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" id="query" name="query">
+                    <button class="btn btn-submit search-button"><i class="fas fa-search"></i></button>
+                </form>
                 <?php
                 if (isset($_SESSION["logged_in"])) {
                 ?>
                     <div class="dropdown">
                         <a href="" class="d-flex align-items-center justify-content-center link-dark text-decoration-none dropdown-toggle" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp']?>" width=32 height=32>
+                            <img class="rounded-circle mt-1" src="<?php echo $_SESSION['pfp'] ?>" width=32 height=32>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small" aria-labelledby="dropdownUser3">
                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#uploadFormModal"> <i class="fas fa-video"></i> New Video</a></li>
@@ -27,7 +28,7 @@
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </li>
                 <?php } ?>
-            </form>
+            </div>
 
 
 
@@ -53,7 +54,7 @@
                                 // Session Vars
                                 jQuery.ajax({
                                     type: "POST",
-                                    url: '../api/google_login/session_vars.php',
+                                    url: 'http://localhost/api/google_login/session_vars.php',
                                     dataType: "json",
                                     data: {
                                         "g_id": profile.getId(),
@@ -79,8 +80,8 @@
 
                 function signOut() {
                     var auth2 = gapi.auth2.getAuthInstance();
-                    auth2.signOut().then(function () {
-                        console.log('User signed out.');                      
+                    auth2.signOut().then(function() {
+                        console.log('User signed out.');
                     });
                     jQuery.ajax({
                         type: "POST",
@@ -98,6 +99,7 @@
                         }
                     })
                 }
+
             </script>
 
         </ul>

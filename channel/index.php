@@ -163,7 +163,7 @@ if ($result1->num_rows > 0) {
     </style>
 </head>
 
-<body style="background-color: #111112;"  class="transition-fade" id="swup">
+<body style="background-color: #111112;"  >
     <?php include_once '../headers/nav.php' ?>
 
     <div class="container-fluid">
@@ -179,7 +179,7 @@ if ($result1->num_rows > 0) {
                         </li>
                         <?php if (isset($_SESSION['logged_in'])) {?>
                         <li>
-                            <a href="http://localhost/channel?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                            <a href="http://localhost/channel/?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                 <i class="fas fa-user fs-1 mt-3"></i>
                             </a>
                         </li>
@@ -199,7 +199,7 @@ if ($result1->num_rows > 0) {
                 </div>
             </div>
 
-            <div class="col-sm min-vh-100 p-3">
+            <div class="col-sm min-vh-100 p-3 transition-fade" id="swup">
                 <div class="channel-top d-flex align-middle">
                     <img src="<?php echo $channelPfp ?>" alt="" class="rounded-circle">
                     <h1 class="ms-3 mt-3"><?php echo $channelName ?></h1>

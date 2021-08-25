@@ -1,8 +1,8 @@
-<?php session_start() ;
+<?php session_start();
 
 include_once "../utility/sql_connect.php";
 
-$query1 = 'SELECT * FROM videos WHERE wid ='.$_GET["v"];                        
+$query1 = 'SELECT * FROM videos WHERE wid =' . $_GET["v"];
 $result1 = $con->query($query1);
 
 if ($result1->num_rows > 0) {
@@ -13,11 +13,11 @@ if ($result1->num_rows > 0) {
         $videoDescription = $row["video_description"];
         $videoLikes = $row["likes"];
         $videoViews = $row["views"];
-        
-        $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
+
+        $query2 = 'SELECT * FROM ggusers WHERE uid = ' . $row["channel_uid"];
         $result2 = $con->query($query2);
 
-        while ($row = $result2->fetch_assoc()) {   
+        while ($row = $result2->fetch_assoc()) {
             $channelPfp = $row["pfp_url"];
             $channelUid = $row["uid"];
             $channelName = $row["name"];
@@ -26,7 +26,7 @@ if ($result1->num_rows > 0) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" class="transition-fade" id="swup">
+<html lang="en">
 
 <head>
     <!-- Meta -->
@@ -61,35 +61,35 @@ if ($result1->num_rows > 0) {
                                 <i class="fas fa-home fs-1 mt-3"></i>
                             </a>
                         </li>
-                        <?php if (isset($_SESSION['logged_in'])) {?>
-                        <li>
-                            <a href="http://localhost/channel?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-                                <i class="fas fa-user fs-1 mt-3"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://localhost/history/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                                <i class="fas fa-history fs-1 mt-3"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://localhost/videos/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-                                <i class="fas fa-film fs-1 mt-3"></i>
-                            </a>
-                        </li>
-                        <?php }?>
+                        <?php if (isset($_SESSION['logged_in'])) { ?>
+                            <li>
+                                <a href="http://localhost/channel?/c=<?php echo $_SESSION['uid'] ?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                                    <i class="fas fa-user fs-1 mt-3"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://localhost/history/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                                    <i class="fas fa-history fs-1 mt-3"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://localhost/videos/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                                    <i class="fas fa-film fs-1 mt-3"></i>
+                                </a>
+                            </li>
+                        <?php } ?>
 
 
                 </div>
             </div>
 
-            <div class="col-sm min-vh-100 p-0">
+            <div class="col-sm min-vh-100 p-0 transition-fade" id="swup">
                 <!-- Player -->
 
                 <div class="vcontainer d-flex justify-content-center" style=" background-color: #0b121c;">
                     <div class="video-wrapper" style="max-width: 75%;">
-                        <video id="player" playsinline controls data-poster="<?php echo $thumbLink?>">
-                            <source src="<?php echo $videoLink?>" type="video/mp4" />
+                        <video id="player" playsinline controls data-poster="<?php echo $thumbLink ?>">
+                            <source src="<?php echo $videoLink ?>" type="video/mp4" />
                         </video>
 
                         <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
@@ -100,24 +100,25 @@ if ($result1->num_rows > 0) {
                     </div>
                 </div>
 
-                <h1 class="text-white pt-3 px-5 mx-5"><?php echo $videoTitle?></h1>
-                <a class="text-decoration-none d-flex px-5 pb-2 mb-1 mx-5 border-bottom border-dark border-2" href="<?php echo 'http://localhost/channel/'.$channelUid?>">
-                    <img class="rounded-circle" src="<?php echo $channelPfp?>" width=32 height=32> 
-                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName?> </h5> 
-                </a> 
-                
+                <h1 class="text-white pt-3 px-5 mx-5"><?php echo $videoTitle ?></h1>
+                <a class="text-decoration-none d-flex px-5 pb-2 mb-1 mx-5 border-bottom border-dark border-2" href="<?php echo 'http://localhost/channel/?c=' . $channelUid ?>">
+                    <img class="rounded-circle" src="<?php echo $channelPfp ?>" width=32 height=32>
+                    <h5 class="fs-6 ms-2 pt-1"><?php echo $channelName ?> </h5>
+                </a>
+
                 <p class="text-secondary px-5 mx-5">Description: </p>
                 <p class="text-white px-5 pb-3 mx-5 border-bottom border-dark border-2">
-                    <?php if ($videoDescription) { echo $videoDescription;} else {echo "No description";}?>
+                    <?php if ($videoDescription) {
+                        echo $videoDescription;
+                    } else {
+                        echo "No description";
+                    } ?>
                 </p>
-                
+
                 <p class="text-secondary px-5 mx-5">Comments: </p>
                 <div class="input-group pb-3 px-5 mx-5 w-75">
                     <input name="comment_box" id="comment_box" type="text" class="form-control bg-dark text-light" style="border: 0px;" placeholder="Write a comment" aria-label="Write a comment" aria-describedby="commentInput">
-                    <button class="btn btn-dark" type="button" id="commentInput"
-                    onclick="upload_comment()"
-                    
-                    >Post</button>
+                    <button class="btn btn-dark" type="button" id="commentInput" onclick="upload_comment()">Post</button>
                 </div>
 
                 <!-- Comment Section -->
@@ -125,34 +126,33 @@ if ($result1->num_rows > 0) {
                 <div class="container mb-5">
                     <!-- Thread -->
                     <?php
-                        $query1 = 'SELECT * FROM comments ORDER BY likes DESC';                        
-                        $result1 = $con->query($query1);
+                    $query1 = 'SELECT * FROM comments ORDER BY likes DESC';
+                    $result1 = $con->query($query1);
 
-                        if ($result1->num_rows > 0) {
-                            while ($row = $result1->fetch_assoc()) {
-                                    $comment_text = $row["comment_text"];
-                                    $commenter_uid = $row["commenter_uid"];
+                    if ($result1->num_rows > 0) {
+                        while ($row = $result1->fetch_assoc()) {
+                            $comment_text = $row["comment_text"];
+                            $commenter_uid = $row["commenter_uid"];
 
-                                $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["commenter_uid"];                        
-                                $result2 = $con->query($query2);
+                            $query2 = 'SELECT * FROM ggusers WHERE uid = ' . $row["commenter_uid"];
+                            $result2 = $con->query($query2);
 
-                                while ($row = $result2->fetch_assoc()) {   
-                                    $commenter_pfp = $row["pfp_url"];
-                                    $commenter_name = $row["name"];
-                                }
-    
-                                include "../headers/comments/thread.php";
+                            while ($row = $result2->fetch_assoc()) {
+                                $commenter_pfp = $row["pfp_url"];
+                                $commenter_name = $row["name"];
                             }
+
+                            include "../headers/comments/thread.php";
                         }
+                    }
                     ?>
-                    
+
                 </div>
             </div>
         </div>
     </div>
     
     <!-- Upload Modal -->
-
     <div class="modal fade" id="uploadFormModal" tabindex="-1" aria-labelledby="uploadFormModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content bg-dark">
@@ -192,7 +192,7 @@ if ($result1->num_rows > 0) {
                                     <video id="video-preview"> </video>
                                     <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
                                     <script>
-                                        const player = new Plyr('#video-preview');
+                                        const player2 = ('#video-preview');
                                     </script>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@ if ($result1->num_rows > 0) {
             </div>
         </div>
     </div>
-
+    
     <!-- Video and Thumbnail Preview -->
     <script type="text/javascript">
         function readURLThumb(input) {
@@ -253,6 +253,7 @@ if ($result1->num_rows > 0) {
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
         function upload_comment() {
             jQuery.ajax({
                 type: 'POST',
@@ -264,7 +265,7 @@ if ($result1->num_rows > 0) {
 
                 success: function(obj, textstatus) {
                     console.log(obj)
-                    location.reload();      
+                    location.reload();
                 }
             })
         }

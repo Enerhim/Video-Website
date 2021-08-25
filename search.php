@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php 
+
+session_start();
+
+include_once "./utility/sql_connect.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,15 +14,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Head -->
-    <title>Video Sharing Website</title>
+    <title>Search: <?php echo $_GET["query"]?></title>
 
     <!-- CDN -->
     <?php include_once './headers/cdn.html' ?>
 
     <!-- Links -->
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
     <link rel="stylesheet" href="http://localhost/style.css">
-
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
     <style>
         body {
             overflow-x: hidden;
@@ -144,13 +148,13 @@
     </style>
 </head>
 
-<body style="background-color: #111112">
+<body style="background-color: #111112;">
     <?php include_once './headers/nav.php' ?>
 
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <div class="row text-light">
 
-            <div class="col-sm-auto bg-dark sticky-top" style="z-index: 1000">
+            <div class="col-sm-auto bg-dark  sticky-top" style="z-index: 1000">
                 <div class="d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-center sticky-top">
                     <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-100 px-3 align-items-center mt-5">
                         <li class="nav-item">
@@ -160,7 +164,7 @@
                         </li>
                         <?php if (isset($_SESSION['logged_in'])) {?>
                         <li>
-                            <a href="http://localhost/channel?c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                            <a href="http://localhost/channel?/c=<?php echo $_SESSION['uid']?>" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                 <i class="fas fa-user fs-1 mt-3"></i>
                             </a>
                         </li>
@@ -180,110 +184,47 @@
                 </div>
             </div>
 
+            <div class="col-sm min-vh-100 p-3 transition-fade" id="swup" >
 
-            <div class="col-sm p-3 min-vh-100 transition-fade" id="swup">
-                     
-                <h1 class="fw-bold mb-4" >Newest Videos <a href="http://localhost/newest.php" class="text-decoration-none text-primary">></a></h1>
-                <div class="row row-cols-1 row-cols-md-4 g-4" >
+                <h1 class="fw-bold mb-4" >Search Results for <?php echo $_GET["query"]?></h1>
+                <div class="row row-cols-1 row-cols-md-1 w-50 g-4" >
                     <?php 
-                        include_once "./utility/sql_connect.php";
-
-                        $query1 = 'SELECT * FROM videos ORDER BY wid DESC LIMIT 4';                        
-                        $result1 = $con->query($query1);
-
-                        if ($result1->num_rows > 0) {
-                            while ($row = $result1->fetch_assoc()) {
+                        $sql = "SELECT * FROM videos WHERE video_title REGEXP '".$_GET['query']."+' OR video_description REGEXP '".$_GET['query']."+'";
+                        $result = $con->query($sql);                
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
                                 $thumbLink = $row["thumbnail_link"];
+                                $videoLink = $row["video_link"];
                                 $videoTitle = $row["video_title"];
                                 $videoDescription = $row["video_description"];
-                                $wid = $row["wid"];
                                 $videoLikes = $row["likes"];
                                 $videoViews = $row["views"];
+                                $wid = $row["wid"];
                                 
                                 $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
                                 $result2 = $con->query($query2);
-
+                        
                                 while ($row = $result2->fetch_assoc()) {   
                                     $channelPfp = $row["pfp_url"];
                                     $channelUid = $row["uid"];
                                     $channelName = $row["name"];
                                 }
-    
-                                include "./headers/cards/normal_video_card.php";
+                                include "./headers/cards/search_video_card.php";
                             }
                         }
 
-                    ?>
-                </div>
-
-                <h1 class="fw-bold mb-4 mt-5" >Most Viewed <a href="http://localhost/mostviewed.php" class="text-decoration-none text-primary">></a></h1>
-                <div class="row row-cols-1 row-cols-md-4 g-4" >
-                    <?php 
-                        include_once "./utility/sql_connect.php";
-
-                        $query1 = 'SELECT * FROM videos ORDER BY views DESC';                        
-                        $result1 = $con->query($query1);
-
-                        if ($result1->num_rows > 0) {
-                            while ($row = $result1->fetch_assoc()) {
-                                $thumbLink = $row["thumbnail_link"];
-                                $videoTitle = $row["video_title"];
-                                $videoDescription = $row["video_description"];
-                                $wid = $row["wid"];
-                                $videoLikes = $row["likes"];
-                                $videoViews = $row["views"];
-                                
-                                $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
-                                $result2 = $con->query($query2);
-
-                                while ($row = $result2->fetch_assoc()) {   
-                                    $channelPfp = $row["pfp_url"];
-                                    $channelUid = $row["uid"];
-                                    $channelName = $row["name"];
-                                }
-    
-                                include "./headers/cards/normal_video_card.php";
-                            }
+                        else {
+                            ?>
+                            <h3 class="text-secondary">None, Maybe you misspelled something..</h3>
+                            <?php
                         }
-
                     ?>
                 </div>
 
-                <h1 class="fw-bold mb-4 mt-5" >Most Liked <a href="http://localhost/mostliked.php" class="text-decoration-none text-primary">></a></h1>
-                <div class="row row-cols-1 row-cols-md-4 g-4" >
-                    <?php 
-                        include_once "./utility/sql_connect.php";
-
-                        $query1 = 'SELECT * FROM videos ORDER BY likes DESC LIMIT 4';                        
-                        $result1 = $con->query($query1);
-
-                        if ($result1->num_rows > 0) {
-                            while ($row = $result1->fetch_assoc()) {
-                                $thumbLink = $row["thumbnail_link"];
-                                $videoTitle = $row["video_title"];
-                                $videoDescription = $row["video_description"];
-                                $wid = $row["wid"];
-                                $videoLikes = $row["likes"];
-                                $videoViews = $row["views"];
-                                
-                                $query2 = 'SELECT * FROM ggusers WHERE uid = '.$row["channel_uid"];                        
-                                $result2 = $con->query($query2);
-
-                                while ($row = $result2->fetch_assoc()) {   
-                                    $channelPfp = $row["pfp_url"];
-                                    $channelUid = $row["uid"];
-                                    $channelName = $row["name"];
-                                }
-    
-                                include "./headers/cards/normal_video_card.php";
-                            }
-                        }
-
-                    ?>
-                </div>
             </div>
         </div>
     </div>
+    
     <!-- Upload Modal -->
 
     <div class="modal fade" id="uploadFormModal" tabindex="-1" aria-labelledby="uploadFormModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
@@ -315,7 +256,7 @@
                             <!-- Video File -->
                             <div class="row">
                                 <div class="col">
-                                    <div class="input-group mb-3f">
+                                    <div class="input-group mb-3    ">
                                         <label class="input-group-text" for="video">Upload Video</label>
                                         <input type="file" name="video" id="video" class="form-control" onchange="readURLVideo(this);" accept="video/mp4, video/mkv, video/avi, video/webm" required />
                                     </div>
@@ -388,10 +329,10 @@
         }
     </script>
 
-<?php 
-    $con->close();
-?>
 
 </body>
+
+<?php $con->close() ?>
+
 
 </html>
